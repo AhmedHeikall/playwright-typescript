@@ -43,11 +43,18 @@ The project focuses on building maintainable and reliable automated tests for we
 
 ```text
 playwrightdemo/
+├── pages/
+│   ├── BasePage.ts             # Shared Playwright page, action, and wait utilities
+│   ├── LoginPage.ts            # Login page locators, assertions, and actions
+│   └── ProductsPage.ts         # Products page locators and actions
 ├── tests/
 │   └── e2e/
-│       └── login.spec.ts       # Login page UI and authentication scenarios
+│       ├── login.spec.ts       # Login UI, authentication, and logout scenarios
+│       └── products.spec.ts    # Products page item-count scenario
 ├── utilites/
-│   └── helper.ts               # Shared navigation, visibility, and login helpers
+│   ├── Actions.ts              # Shared locator interaction methods
+│   ├── Waits.ts                # Shared page-load wait methods
+│   └── helper.ts               # Shared navigation and login helpers
 ├── e2e.config.ts               # Playwright configuration for E2E tests
 ├── playwright.config.ts        # General Playwright configuration
 ├── package.json
@@ -59,8 +66,18 @@ playwrightdemo/
 
 `tests/e2e/login.spec.ts` covers:
 
-- **Valid login suite** — verifies the login page elements, successful login, and logout.
+- **Valid login suite** — verifies the initial login page state, successful login and key products page elements, and logout.
 - **Invalid login suite** — verifies the error messages for invalid credentials and an empty password.
+
+`tests/e2e/products.spec.ts` verifies that a successful login displays six product cards.
+
+### Page Object Model
+
+The page objects encapsulate locators and page interactions so tests can use readable APIs instead of defining selectors directly:
+
+- `BasePage` provides the shared Playwright `Page`, `Actions`, and `Waits` instances.
+- `LoginPage` provides login page assertions and login actions.
+- `ProductsPage` provides products page assertions and menu/logout actions.
 
 ## ▶️ Running the Tests
 
