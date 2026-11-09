@@ -43,7 +43,7 @@ test.describe("Valid Login Page Test Suite", () => {
   test("02 - Valid Login functionality", async () => {
     await loginPage.login("standard_user", "secret_sauce");
     await expect(productsPage.logo).toBeVisible();
-    await expect(productsPage.burgerMenuBtn).toBeVisible();
+    await expect(productsPage.sideMenu.burgerMenuBtn).toBeVisible();
     await expect(productsPage.shoppingCartBtn).toBeVisible();
     await expect(productsPage.productsTitleLocator).toBeVisible();
     await expect(productsPage.sortDropdown).toBeVisible();
@@ -51,8 +51,8 @@ test.describe("Valid Login Page Test Suite", () => {
 
   test("03 - Logout functionality", async () => {
     await loginPage.login("standard_user", "secret_sauce");
-    await productsPage.clickOnBurgerMenuButton();
-    await productsPage.clickOnLogoutButton();
+    await productsPage.sideMenu.clickOnBurgerMenuButton();
+    await productsPage.sideMenu.clickOnLogoutButton();
 
     await expect(loginPage.logo).toBeVisible();
     await expect(loginPage.usernameField).toBeVisible();

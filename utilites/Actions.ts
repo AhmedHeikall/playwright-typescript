@@ -14,4 +14,10 @@ export class Actions {
   async clickOnElement(elementLocator: Locator) {
     await elementLocator.click();
   }
+
+  async getElementTextContent(elementLocator: Locator): Promise<string | null> {
+    const textContent = await elementLocator.textContent();
+    console.log(`The element text content is: ${textContent}`);
+    return textContent;
+  }
 }

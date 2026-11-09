@@ -46,7 +46,11 @@ playwrightdemo/
 ├── pages/
 │   ├── BasePage.ts             # Shared Playwright page, action, and wait utilities
 │   ├── LoginPage.ts            # Login page locators, assertions, and actions
-│   └── ProductsPage.ts         # Products page locators and actions
+│   └── ProductsPage.ts         # Products page locators and sorting actions
+├── components/
+│   └── SideMenu.ts             # Shared burger menu and logout interactions
+├── test-data/
+│   └── products.ts             # Shared valid credentials and expected product data
 ├── tests/
 │   └── e2e/
 │       ├── login.spec.ts       # Login UI, authentication, and logout scenarios
@@ -69,7 +73,7 @@ playwrightdemo/
 - **Valid login suite** — verifies the initial login page state, successful login and key products page elements, and logout.
 - **Invalid login suite** — verifies the error messages for invalid credentials and an empty password.
 
-`tests/e2e/products.spec.ts` verifies that a successful login displays six product cards.
+`tests/e2e/products.spec.ts` verifies that a successful login displays exactly six product cards and that each product name and price match the expected values.
 
 ### Page Object Model
 
@@ -77,7 +81,8 @@ The page objects encapsulate locators and page interactions so tests can use rea
 
 - `BasePage` provides the shared Playwright `Page`, `Actions`, and `Waits` instances.
 - `LoginPage` provides login page assertions and login actions.
-- `ProductsPage` provides products page assertions and menu/logout actions.
+- `ProductsPage` provides product-list and products-page locators, sorting actions, and a `SideMenu` component.
+- `SideMenu` encapsulates the burger-menu and logout interactions used by the products page.
 
 ## ▶️ Running the Tests
 
@@ -103,6 +108,12 @@ Run the login test file:
 
 ```bash
 npx playwright test --config=e2e.config.ts tests/e2e/login.spec.ts
+```
+
+Run the products test file:
+
+```bash
+npx playwright test --config=e2e.config.ts tests/e2e/products.spec.ts
 ```
 
 Run one test by title (replace the text with a test title or part of one):

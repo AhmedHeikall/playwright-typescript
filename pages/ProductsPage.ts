@@ -1,13 +1,12 @@
 import { Locator } from "@playwright/test";
 import { BasePage } from "./BasePage";
+import { SideMenu } from "../components/SideMenu";
 
 export class ProductsPage extends BasePage {
+  public sideMenu = new SideMenu(this.page);
   private readonly appLogo: Locator = this.page.getByText("Swag Labs", {
     exact: true,
   });
-  private readonly burgerMenuButton: Locator = this.page.locator(
-    "#react-burger-menu-btn",
-  );
   private readonly shoppingCartButton: Locator = this.page.locator(
     ".shopping_cart_link",
   );
@@ -18,19 +17,17 @@ export class ProductsPage extends BasePage {
     ".product_sort_container",
   );
 
-  private readonly logoutLink: Locator = this.page.getByRole("button", {
-    name: "Logout",
-  });
-
   private readonly productItems: Locator = this.page.locator(".inventory_item");
+  private readonly productNames: Locator = this.page.locator(
+    ".inventory_item_name",
+  );
+  private readonly productPrices: Locator = this.page.locator(
+    ".inventory_item_price",
+  );
 
   // Public getters for test assertions
   get logo(): Locator {
     return this.appLogo;
-  }
-
-  get burgerMenuBtn(): Locator {
-    return this.burgerMenuButton;
   }
 
   get shoppingCartBtn(): Locator {
@@ -49,11 +46,20 @@ export class ProductsPage extends BasePage {
     return this.productItems;
   }
 
-  async clickOnBurgerMenuButton() {
-    await this.actions.clickOnElement(this.burgerMenuButton);
+  get productNamesLocator(): Locator {
+    return this.productNames;
   }
 
-  async clickOnLogoutButton() {
-    await this.actions.clickOnElement(this.logoutLink);
+  get productPricesLocator(): Locator {
+    return this.productPrices;
+  }
+
+  async clickOnSortDropdown() {
+    await this.actions.clickOnElement(this.productSortDropdown);
+  }
+
+  async SelectSortOption(option: string | RegExp) {
+    await this.clickOnSortDropdown();
+    await this.page.getByRole("option", { name: option }).click();
   }
 }
