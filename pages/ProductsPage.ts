@@ -54,12 +54,7 @@ export class ProductsPage extends BasePage {
     return this.productPrices;
   }
 
-  async clickOnSortDropdown() {
-    await this.actions.clickOnElement(this.productSortDropdown);
-  }
-
-  async SelectSortOption(option: string | RegExp) {
-    await this.clickOnSortDropdown();
-    await this.page.getByRole("option", { name: option }).click();
+  async selectSortOption(label: string) {
+    await this.productSortDropdown.selectOption({ label });
   }
 }

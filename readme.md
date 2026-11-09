@@ -73,7 +73,7 @@ playwrightdemo/
 - **Valid login suite** — verifies the initial login page state, successful login and key products page elements, and logout.
 - **Invalid login suite** — verifies the error messages for invalid credentials and an empty password.
 
-`tests/e2e/products.spec.ts` verifies that a successful login displays exactly six product cards and that each product name and price match the expected values.
+`tests/e2e/products.spec.ts` verifies the product count and expected names and prices, plus sorting by name (A to Z) (`INV-01`) and price (low to high) (`INV-02`).
 
 ### Page Object Model
 

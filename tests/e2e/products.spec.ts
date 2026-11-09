@@ -36,4 +36,33 @@ test.describe("Verify Products Page Items", () => {
       ...expectedProducts.map((product) => product.price),
     ]);
   });
+
+  test("sorts products by name from A to Z", async () => {
+    const expectedProductsByName = [...expectedProducts].sort((first, second) =>
+      first.name.localeCompare(second.name),
+    );
+
+    await productsPage.selectSortOption("Name (A to Z)");
+
+    await expect(productsPage.productNamesLocator).toHaveText(
+      expectedProductsByName.map((product) => product.name),
+    );
+  });
+
+  test("sorts products by price from low to high", async () => {
+    const expectedProductsByPrice = [...expectedProducts].sort(
+      (first, second) =>
+        Number(first.price.replace("$", "")) -
+        Number(second.price.replace("$", "")),
+    );
+
+    await productsPage.selectSortOption("Price (low to high)");
+
+    await expect(productsPage.productPricesLocator).toHaveText(
+      expectedProductsByPrice.map((product) => product.price),
+    );
+    await expect(productsPage.productNamesLocator).toHaveText(
+      expectedProductsByPrice.map((product) => product.name),
+    );
+  });
 });
